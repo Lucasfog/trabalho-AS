@@ -3,7 +3,7 @@ CREATE DATABASE IF NOT EXISTS erp
   DEFAULT CHARACTER SET utf8mb4 
   COLLATE utf8mb4_general_ci;
 
-USE erp;
+USE erp; 
 
 -- Criação da tabela Clientes
 CREATE TABLE clientes (
