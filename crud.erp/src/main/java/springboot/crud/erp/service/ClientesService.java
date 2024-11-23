@@ -22,8 +22,8 @@ public class ClientesService {
         return clientesRepository.findAll();
     }
 
-    public void removerCliente(int IdChamado) {
-        clientesRepository.deleteById(IdChamado);
+    public void removerCliente(int IdCliente) {
+        clientesRepository.deleteById(IdCliente);
     }
 
     public void alterarCliente(Clientes clientes) {
