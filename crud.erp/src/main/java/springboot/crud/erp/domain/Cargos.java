@@ -39,5 +39,4 @@ public class Cargos implements Serializable {
     @JsonProperty("salarioBase")
     private Float salarioBase;
 
-    // Getters e Setters
 }
