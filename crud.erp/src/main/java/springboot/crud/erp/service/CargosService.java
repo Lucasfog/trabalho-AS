@@ -1,5 +1,6 @@
 package springboot.crud.erp.service;
 
+import java.util.List;
 import org.springframework.stereotype.Service;
 import springboot.crud.erp.domain.Cargos;
 import springboot.crud.erp.repository.CargosRepository;
@@ -14,9 +15,23 @@ public class CargosService {
     }
 
     public Cargos getCargos(Integer id) {
-        Cargos cargo = cargosRepository.findCargosById(id);
-        System.out.println("Cargos encontrado: " + cargo);
-        return cargo;
+        return cargosRepository.findCargosById(id);
+    }
+    
+    public List<Cargos> listCargos() {
+        return cargosRepository.findAll();
+    }
+    
+    public void removerCargo(int IdCargo) {
+        cargosRepository.deleteById(IdCargo);
+    }
+    
+    public void alterarCargo(Cargos cargos) {
+        cargosRepository.save(cargos);
+    }
+    
+    public void inserirCargo(Cargos cargos) {
+        cargosRepository.save(cargos);
     }
 
 }
