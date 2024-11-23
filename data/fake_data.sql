@@ -36,3 +36,16 @@ VALUES
 ('Solicitação de acesso', 'Necessário liberar acesso para novo usuário.', '2024-03-01 10:00:00', '2024-03-03 14:00:00', 'Baixa', 3, 3, 'Chat'),
 ('Atualização de sistema', 'Solicitação para atualizar sistema para nova versão.', '2024-04-01 11:00:00', '2024-04-05 11:00:00', 'Média', 4, 4, 'Email'),
 ('Problema de performance', 'Sistema está lento durante o uso.', '2024-05-01 12:00:00', '2024-05-03 16:00:00', 'Alta', 5, 5, 'Telefone');
+
+-- Inserção de dados fictícios na tabela Usuarios
+INSERT INTO usuarios (nome, email, senha, ativo) VALUES
+('Carlos Souza', 'carlos.souza@trabalhoerp.com', 'senha123', TRUE),
+('Maria Oliveira', 'maria.oliveira@trabalhoerp.com', 'senha456', TRUE),
+('José Pereira', 'jose.pereira@trabalhoerp.com', 'senha789', FALSE),
+('Ana Costa', 'ana.costa@trabalhoerp.com', 'senha101', TRUE),
+('Lucas Gomes', 'lucas.gomes@trabalhoerp.com', 'senha202', TRUE),
+('Fernanda Lima', 'fernanda.lima@trabalhoerp.com', 'senha303', FALSE),
+('Roberto Alves', 'roberto.alves@trabalhoerp.com', 'senha404', TRUE),
+('Patrícia Santos', 'patricia.santos@trabalhoerp.com', 'senha505', TRUE),
+('Felipe Martins', 'felipe.martins@trabalhoerp.com', 'senha606', TRUE),
+('Juliana Rocha', 'juliana.rocha@trabalhoerp.com', 'senha707', FALSE);
