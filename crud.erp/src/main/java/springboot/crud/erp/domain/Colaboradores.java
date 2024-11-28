@@ -66,7 +66,7 @@ public class Colaboradores implements Serializable {
     @Column(name = "id_cargo", nullable = false)
     @JsonProperty("idCargoColaborador")
     private Integer idCargoColaborador;
-    
+
     @Column(name = "salario", nullable = false)
     @JsonProperty("salarioColaborador")
     private Integer salarioColaborador;

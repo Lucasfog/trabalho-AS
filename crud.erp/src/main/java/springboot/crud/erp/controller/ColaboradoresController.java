@@ -14,9 +14,9 @@ import springboot.crud.erp.service.ColaboradoresService;
 
 @RestController
 public class ColaboradoresController {
-    
+
     private ColaboradoresService colaboradoresService;
-    
+
     public ColaboradoresController(ColaboradoresService colaboradoresService) {
         this.colaboradoresService = colaboradoresService;
     }
