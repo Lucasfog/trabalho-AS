@@ -32,23 +32,16 @@ function Chamados() {
     }
   };
 
-  // Função para adicionar chamado (POST)
+  // Função para adicionar cliente (POST)
   const adicionarChamado = async () => {
     try {
-      // Convertendo as datas para o formato DD/MM/YYYY antes de enviar
-      const chamadoParaEnviar = {
-        ...novoChamado,
-        dataAbertura: format(new Date(novoChamado.dataAbertura), "dd/MM/yyyy"),
-        dataEncerramento: format(new Date(novoChamado.dataEncerramento), "dd/MM/yyyy"),
-      };
-
-      const response = await axios.post(`${API_URL}/inserirChamado`, chamadoParaEnviar, {
+      const response = await axios.post(`${API_URL}/inserirChamado`, novoChamado, {
         headers: { "Content-Type": "application/json" },
       });
 
       if (response.status === 200) {
         alert("Chamado adicionado com sucesso!");
-        fetchChamados(); // Recarrega os chamados após a adição
+        fetchChamados();
         resetFormulario();
       } else {
         console.error("Erro inesperado:", response.data);
