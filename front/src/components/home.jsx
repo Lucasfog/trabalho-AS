@@ -1,8 +1,24 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 function Home() {
+  const [usuario, setUsuario] = useState(null);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    // Busca o usuário logado no localStorage
+    const usuarioLogado = localStorage.getItem('usuarioLogado');
+    if (usuarioLogado) {
+      setUsuario(JSON.parse(usuarioLogado));
+    } else {
+      navigate('/'); // Redireciona para a tela de login se não estiver logado
+    }
+  }, [navigate]);
+
+  const handleLogout = () => {
+    localStorage.removeItem('usuarioLogado');
+    navigate('/'); // Redireciona para a tela de login após logout
+  };
 
   const styles = {
     container: {
@@ -27,6 +43,11 @@ function Home() {
       color: '#333',
       marginBottom: '20px',
     },
+    welcomeMessage: {
+      fontSize: '1.2rem',
+      color: '#555',
+      marginBottom: '20px',
+    },
     button: {
       padding: '10px',
       width: '100%',
@@ -39,14 +60,25 @@ function Home() {
       cursor: 'pointer',
       transition: 'background-color 0.3s',
     },
+    logoutButton: {
+      backgroundColor: '#d9534f',
+    },
     buttonHover: {
       backgroundColor: '#218838',
+    },
+    logoutHover: {
+      backgroundColor: '#c82333',
     },
   };
 
   return (
     <div style={styles.container}>
       <div style={styles.box}>
+        {usuario && (
+          <p style={styles.welcomeMessage}>
+            Bem-vindo(a), {usuario.nomeUsuario}!
+          </p>
+        )}
         <h1 style={styles.title}>Menu Principal</h1>
         <button
           style={styles.button}
@@ -79,6 +111,14 @@ function Home() {
           onClick={() => navigate('/home/chamados')}
         >
           Realizar Chamados
+        </button>
+        <button
+          style={{ ...styles.button, ...styles.logoutButton }}
+          onMouseOver={(e) => (e.target.style.backgroundColor = styles.logoutHover.backgroundColor)}
+          onMouseOut={(e) => (e.target.style.backgroundColor = styles.logoutButton.backgroundColor)}
+          onClick={handleLogout}
+        >
+          Encerrar Sessão
         </button>
       </div>
     </div>

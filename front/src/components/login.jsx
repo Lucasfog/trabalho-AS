@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import api from '../api/api';
 
@@ -9,6 +9,15 @@ function Login() {
   const navigate = useNavigate();
 
   const API_URL = 'http://localhost:8080';
+
+  // Checa se há um usuário armazenado na sessão ao carregar a tela
+  useEffect(() => {
+    const usuarioLogado = localStorage.getItem('usuarioLogado');
+    if (usuarioLogado) {
+      setMensagem(`Bem-vindo(a) de volta, ${JSON.parse(usuarioLogado).nomeUsuario}!`);
+      setTimeout(() => navigate('/home'), 2000);
+    }
+  }, [navigate]);
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -24,15 +33,20 @@ function Login() {
       );
 
       if (usuarioValido) {
-        setMensagem('Login realizado com sucesso!');
+        localStorage.setItem('usuarioLogado', JSON.stringify(usuarioValido)); // Salva na sessão
+        setMensagem(`Login realizado com sucesso! Bem-vindo, ${usuarioValido.nomeUsuario}!`);
         setTimeout(() => navigate('/home'), 1000); // Redireciona após 1 segundo
-        console.log('Usuário autenticado:', usuarioValido.nomeUsuario);
       } else {
         setMensagem('Erro: Credenciais inválidas ou usuário inativo');
       }
     } catch (error) {
       setMensagem('Erro ao conectar ao servidor.');
     }
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem('usuarioLogado');
+    setMensagem('Você saiu da sessão.');
   };
 
   const styles = {
@@ -71,12 +85,22 @@ function Login() {
       fontSize: '1rem',
     },
     message: {
-      color: '#d9534f',
+      color: mensagem.includes('sucesso') ? '#28a745' : '#d9534f',
       marginTop: '10px',
     },
     link: {
       color: '#007bff',
       cursor: 'pointer',
+    },
+    logoutButton: {
+      padding: '10px',
+      backgroundColor: '#d9534f',
+      color: '#fff',
+      border: 'none',
+      borderRadius: '5px',
+      cursor: 'pointer',
+      fontSize: '1rem',
+      marginTop: '20px',
     },
   };
 
@@ -103,15 +127,6 @@ function Login() {
         <button type="submit" style={styles.button}>Entrar</button>
       </form>
       {mensagem && <p style={styles.message}>{mensagem}</p>}
-      <p>
-        Não tem conta?{' '}
-        <span
-          style={styles.link}
-          onClick={() => navigate('/cadastro')}
-        >
-          Cadastre-se aqui
-        </span>
-      </p>
     </div>
   );
 }
