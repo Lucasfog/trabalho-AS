@@ -8,15 +8,30 @@ function Login() {
   const [mensagem, setMensagem] = useState('');
   const navigate = useNavigate();
 
+  const API_URL = 'http://localhost:8080';
+
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      const response = await api.post('/login', { email, senha });
-      setMensagem('Login realizado com sucesso!');
-      setTimeout(() => navigate('/home'), 1000); // Redireciona após 1 segundo
-      console.log(response.data); // Exibe a resposta do backend
+      const response = await api.get(`${API_URL}/usuarios`);
+      const usuarios = response.data;
+
+      const usuarioValido = usuarios.find(
+        (usuario) =>
+          usuario.emailUsuario === email &&
+          usuario.senhaUsuario === senha &&
+          usuario.ativoUsuario
+      );
+
+      if (usuarioValido) {
+        setMensagem('Login realizado com sucesso!');
+        setTimeout(() => navigate('/home'), 1000); // Redireciona após 1 segundo
+        console.log('Usuário autenticado:', usuarioValido.nomeUsuario);
+      } else {
+        setMensagem('Erro: Credenciais inválidas ou usuário inativo');
+      }
     } catch (error) {
-      setMensagem('Erro: Credenciais inválidas');
+      setMensagem('Erro ao conectar ao servidor.');
     }
   };
 
